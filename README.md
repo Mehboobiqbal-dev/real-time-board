@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ... (all previous sections)
 
-## Getting Started
+### Backend
 
-First, run the development server:
+*   **API**: Next.js API Routes. A single route, `/api/socket`, is used to initialize the Socket.IO server.
+*   **WebSocket Server**: `Socket.IO` is attached to the Next.js HTTP server. It handles client connections and broadcasts events.
+*   **Persistence**: The board state is stored in a **MongoDB** database. A singleton connection pattern is used for efficient database access in a serverless environment. The entire board is stored as a single document, which is updated on every change.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Trade-offs & Decisions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*   **File-based DB vs. Real Database**: The project was upgraded from a simple `db.json` file to MongoDB. This provides a robust, scalable, and production-ready persistence layer that can safely handle concurrent operations from multiple users.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup & Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/real-time-board.git
+    cd real-time-board
+    ```
 
-## Learn More
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+3.  **Set up your Database:**
+    *   This project requires a MongoDB database. You can use a local instance or a free cloud-hosted one from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register).
+    *   Once set up, get your MongoDB Connection String (URI).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4.  **Configure Environment Variables:**
+    *   In the root of the project, create a file named `.env.local`.
+    *   Add your MongoDB connection details to this file:
+        ```
+        MONGODB_URI=your-mongodb-connection-string
+        MONGODB_DB_NAME=your-database-name
+        ```
+    *   **Note:** The `.env.local` file is included in `.gitignore` and should never be committed to your repository.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-## Deploy on Vercel
+6.  Open your browser and navigate to `https://real-time-board-pi.vercel.app/`. The first time the application runs, it will automatically "seed" your database with initial sample data.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
