@@ -14,7 +14,7 @@
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/real-time-board.git
+    git clone https://github.com/your-username/real-time-board.git](https://github.com/Mehboobiqbal-dev/real-time-board
     cd real-time-board
     ```
 
